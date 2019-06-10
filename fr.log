@@ -1,0 +1,1 @@
+INFO 2019-06-10 16:14:15,753 - {"image":{"width":138,"height":138,"orientation":1},"requestId":"647da355600a4e1caa10310d9d439403","objects":[{"objectId":"Saul","objectType":"person","faceAnnotation":{"bounding":{"vertices":[{"x":0,"y":5},{"x":133,"y":5},{"x":133,"y":147},{"x":0,"y":147}]},"recognitionConfidence":0.8323,"attributes":{"system":{"frontal":true}}}}]}
