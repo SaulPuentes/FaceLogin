@@ -16,4 +16,4 @@ def request(img):
     response = requests.post(test_url, data=img_encoded.tostring(), headers=headers)
 
     # decode response
-    print json.loads(response.text)
+    print(json.loads(response.text))

@@ -1,6 +1,6 @@
 import cv2
 import base64
-import httplib
+import http.client
 import json
 import os
 import sys
@@ -39,7 +39,7 @@ def send_request(request_method, request_path, params):
     # Send the request.
     headers = {"Content-type": "application/json",
                "X-Access-Token": _cloud_token}
-    conn = httplib.HTTPSConnection(_cloud_host)
+    conn = http.client.HTTPSConnection(_cloud_host)
     conn.request(request_method, request_path, params, headers)
 
     # Process the response.
@@ -48,7 +48,7 @@ def send_request(request_method, request_path, params):
     error = response.status not in [200, 204]
 
     if _print_responses or error:
-        print response.status, body
+        print(response.status, body)
 
     if error:
         sys.exit(1)
@@ -61,7 +61,7 @@ def request(img):
 
     base64_image = base64.b64encode(img_encoded.tostring())
     
-    params = json.dumps({"image": base64_image})
+    params = json.dumps({"image": base64_image.decode('ascii')})
     url_path = "/v1/recognition?groupId=" + _group_name
     response = json.loads(send_request("POST", url_path, params))
 
