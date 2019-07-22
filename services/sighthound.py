@@ -5,6 +5,8 @@ import json
 import os
 import sys
 
+from save_result import save_result
+
 # Set this variable to True to print all server responses.
 _print_responses = False
 
@@ -64,7 +66,10 @@ def request(img):
     params = json.dumps({"image": base64_image.decode('ascii')})
     url_path = "/v1/recognition?groupId=" + _group_name
     response = json.loads(send_request("POST", url_path, params))
+    
+    save_result(response)
 
+    # Show a message in console
     for face in response['objects']:
 
         # Retrieve and draw the id and confidence of the recongition.

@@ -1,9 +1,9 @@
 import numpy as np
 import cv2
 
-from timer import Timer
-from fr_api import fr_api
 from fr_light import fr_light
+from fr_api import fr_api
+from timer import Timer
 
 class FrLogin:
 
@@ -13,7 +13,7 @@ class FrLogin:
 
     def face_detected(self, path, img):
 
-        if t.seconds() >= 4:
+        if t.seconds() > 4:
                 
             # Save image
             cv2.imwrite(path, img)
@@ -23,7 +23,7 @@ class FrLogin:
             
             t.restart()
             
-        # Save JSON_RESULT
+            # Save JSON_RESULT
     
 
 fr = FrLogin()

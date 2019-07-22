@@ -1,4 +1,4 @@
-from services import opencv, sighthound
+from services import sighthound
 
 def fr_api(path, img):
     # opencv.request(img)
