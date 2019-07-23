@@ -57,7 +57,8 @@ def send_request(request_method, request_path, params):
 
     return body
 
-def request(img):
+
+def request_recognition(img):
     # encode image as jpeg
     _, img_encoded = cv2.imencode('.jpg', img)
 
@@ -76,3 +77,16 @@ def request(img):
         name = face['objectId']
         confidence = face['faceAnnotation']['recognitionConfidence']
         print('[SIGHTHOUND] Hola ' + str(name) + '.La confianza es :' + str(confidence))
+
+
+def request_detection(img):
+    # encode image as jpeg
+    _, img_encoded = cv2.imencode('.jpg', img)
+
+    base64_image = base64.b64encode(img_encoded.tostring())
+    
+    params = json.dumps({"image": base64_image.decode('ascii')})
+    url_path = "/v1/detections?type=face&faceOption=gender,landmark,age,pose,emotion"
+    response = json.loads(send_request("POST", url_path, params))
+    
+    save_result(response)
