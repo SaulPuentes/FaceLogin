@@ -1,7 +1,9 @@
 **.pyc
+**.log
 __pycache__
 
 images/
 .vscode/
 dataset/
 services/*.pyc
+
