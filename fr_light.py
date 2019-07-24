@@ -5,10 +5,10 @@ import cv2
 
 path = './resources/Cascades/'
 faceCascade = cv2.CascadeClassifier(path + 'haarcascade_frontalface_default.xml')
+
 cap = cv2.VideoCapture(0)
 cap.set(3,640) # set Width
 cap.set(4,480) # set Height
-
 
 def fr_light(ms, callback):
 
