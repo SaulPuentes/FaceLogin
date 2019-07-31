@@ -2,9 +2,7 @@ from datetime import datetime
 import numpy as np
 import cv2
 
-
-path = './resources/Cascades/'
-faceCascade = cv2.CascadeClassifier(path + 'haarcascade_frontalface_default.xml')
+faceCascade = cv2.CascadeClassifier('./resources/Cascades/haarcascade_frontalface_default.xml')
 
 cap = cv2.VideoCapture(0)
 cap.set(3,640) # set Width
