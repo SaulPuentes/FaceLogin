@@ -3,12 +3,12 @@ import numpy as np
 import cv2
 
 
-path = '/home/antoniogarcia/anaconda3/lib/python3.6/site-packages/cv2/data/haarcascades/'
+path = './resources/Cascades/'
 faceCascade = cv2.CascadeClassifier(path + 'haarcascade_frontalface_default.xml')
+
 cap = cv2.VideoCapture(0)
 cap.set(3,640) # set Width
 cap.set(4,480) # set Height
-
 
 def fr_light(ms, callback):
 
@@ -17,6 +17,7 @@ def fr_light(ms, callback):
 
     while True:
         ret, img = cap.read()
+        img = cv2.flip(img, -1) # flip camera 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(
             gray,
