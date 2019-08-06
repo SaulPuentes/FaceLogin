@@ -1,14 +1,20 @@
 import cv2
 import base64
-import http.client
+try:
+    import httplib # Python 2
+except:
+    import http.client as httplib # Python 3
 import json
 import os
 import sys
 
-from save_result import save_result
+try:
+    from save_result import save_result
+except:
+    pass
 
 # Set this variable to True to print all server responses.
-_print_responses = False
+_print_responses = True
 
 # Your Sighthound Cloud token. More information at
 # https://www.sighthound.com/support/creating-api-token
@@ -41,7 +47,7 @@ def send_request(request_method, request_path, params):
     # Send the request.
     headers = {"Content-type": "application/json",
                "X-Access-Token": _cloud_token}
-    conn = http.client.HTTPSConnection(_cloud_host)
+    conn = httplib.HTTPSConnection(_cloud_host)
     conn.request(request_method, request_path, params, headers)
 
     # Process the response.
@@ -79,6 +85,7 @@ def request_recognition(img):
         print('[SIGHTHOUND] Hola ' + str(name) + '.La confianza es :' + str(confidence))
 
 
+
 def request_detection(img):
     # encode image as jpeg
     _, img_encoded = cv2.imencode('.jpg', img)
@@ -90,3 +97,42 @@ def request_detection(img):
     response = json.loads(send_request("POST", url_path, params))
     
     save_result(response)
+
+
+def list_all_groups():
+    params = None
+    url_path = '/v1/group'
+    response = json.loads(send_request("GET", url_path, params))
+
+
+def list_all_images():
+    params = None
+    url_path = '/v1/image'
+    response = json.loads(send_request("GET", url_path, params))
+    
+
+def delete_image():
+    params = None
+    imageId = 'IMG_9257.jpg'
+    url_path = '/v1/image/' + imageId
+    response = json.loads(send_request("DELETE", url_path, params))
+    
+def delete_object():
+    params = None
+    objectId = 'Daniel_Carrizales'
+    url_path = '/v1/object/' + objectId
+    response = json.loads(send_request("DELETE", url_path, params))
+
+    
+def delete_group():
+    params = json.dumps({'groupId': 'family'})
+    url_path = '/v1/group/{groupId}/all'
+    response = json.loads(send_request("DELETE", url_path, params))
+
+
+# def list_all_objects():
+#     params = None
+#     url_path = 'v1/object'
+#     response = json.loads(send_request("GET", url_path, params))
+
+list_all_images
