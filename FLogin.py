@@ -13,7 +13,7 @@ class FrLogin:
 
     def face_detected(self, path, img):
 
-        if t.seconds() > 4:
+        if t.seconds() > 1:
                 
             # Save image
             cv2.imwrite(path, img)

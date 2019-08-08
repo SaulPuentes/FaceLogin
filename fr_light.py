@@ -15,7 +15,7 @@ def fr_light(ms, callback):
 
     while True:
         ret, img = cap.read()
-        #img = cv2.flip(img, -1) # flip camera vertically
+        img = cv2.flip(img, -1) # flip camera 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(
             gray,
