@@ -8,12 +8,12 @@ from timer import Timer
 class FrLogin:
 
     def start(self):
-        fr_light(1500, self.face_detected)
+        fr_light(0, self.face_detected)
         
 
     def face_detected(self, path, img):
 
-        if t.seconds() > 1:
+        if t.seconds() > 4:
                 
             # Save image
             cv2.imwrite(path, img)

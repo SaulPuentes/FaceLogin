@@ -77,8 +77,6 @@ def request_recognition(img):
     save_result(response)
     print_message(response)
 
-    
-
 
 def print_message(response):
     # Show a message in console
@@ -140,5 +138,3 @@ def list_all_objects():
     url_path = 'v1/object'
     response = json.loads(send_request("GET", url_path, params))
 
-
-list_all_objects()

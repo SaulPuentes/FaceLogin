@@ -6,7 +6,6 @@ import cv2
 
 faceCascade = cv2.CascadeClassifier('./resources/Cascades/haarcascade_frontalface_alt.xml')
 
-
 cap = cv2.VideoCapture(0)
 cap.set(3,1280) # set Width
 cap.set(4,720) # set Height
@@ -26,7 +25,7 @@ while(True):
         path = "dataset/User." + str(datetime.now()) + ".jpg"
         cv2.imwrite(path, frame[y:y+h,x:x+w])
         cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
-        print("x:{}, y:{}, w:{}, h:{}".format(x,y,w,h))
+        print("[INFO] x:{}, y:{}, w:{}, h:{}".format(x,y,w,h))
     
     cv2.imshow('frame', frame)
     
