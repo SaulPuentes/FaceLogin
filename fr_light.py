@@ -21,7 +21,7 @@ def fr_light(ms, callback):
             gray,
             scaleFactor=1.3,
             minNeighbors=5,
-            minSize=(50, 50)
+            minSize=(40, 40)
         )
 
         if faces == ():
@@ -34,20 +34,23 @@ def fr_light(ms, callback):
             # Set end, total timestamp
             end = datetime.now()
             total_time = end - start
-        
+
+
             # Draw a rectangle around the face
             for (x,y,w,h) in faces:
-                cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+                cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)        
+        
             
             for index in range(len(faces)):
                 # Wait N seconds for callback
                 if total_time.seconds >= min_time:
                     count += 1
                     # Return path and image
-                    path_img =  ("dataset/User." + str(index) + '.' + str(count) + ".jpg")
+                    path_img =  ("dataset/User." + str(index) + '.' + str(end) + ".jpg")
                     face_img = gray[y:y+h,x:x+w]
                     callback(path_img, face_img)
-            
+
+    
         cv2.imshow('video',img)
         k = cv2.waitKey(30) & 0xff
         if k == 27: # press 'ESC' to quit
