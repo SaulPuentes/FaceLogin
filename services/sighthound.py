@@ -135,4 +135,4 @@ def delete_group():
 #     url_path = 'v1/object'
 #     response = json.loads(send_request("GET", url_path, params))
 
-list_all_images
+list_all_images()
