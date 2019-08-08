@@ -21,6 +21,7 @@ class FrLogin:
             # Call FR_API
             fr_api(path, img)
             
+            
             t.restart()
             
             # Save JSON_RESULT

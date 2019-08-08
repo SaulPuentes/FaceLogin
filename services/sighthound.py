@@ -75,7 +75,12 @@ def request_recognition(img):
     response = json.loads(send_request("POST", url_path, params))
     
     save_result(response)
+    print_message(response)
 
+    
+
+
+def print_message(response):
     # Show a message in console
     for face in response['objects']:
 
@@ -83,7 +88,6 @@ def request_recognition(img):
         name = face['objectId']
         confidence = face['faceAnnotation']['recognitionConfidence']
         print('[SIGHTHOUND] Hola ' + str(name) + '.La confianza es :' + str(confidence))
-
 
 
 def request_detection(img):
@@ -103,6 +107,12 @@ def list_all_groups():
     params = None
     url_path = '/v1/group'
     response = json.loads(send_request("GET", url_path, params))
+    
+
+def delete_group():
+    params = json.dumps({'groupId': 'family'})
+    url_path = '/v1/group/{groupId}/all'
+    response = json.loads(send_request("DELETE", url_path, params))
 
 
 def list_all_images():
@@ -117,22 +127,18 @@ def delete_image():
     url_path = '/v1/image/' + imageId
     response = json.loads(send_request("DELETE", url_path, params))
     
+    
 def delete_object():
     params = None
     objectId = 'Daniel_Carrizales'
     url_path = '/v1/object/' + objectId
     response = json.loads(send_request("DELETE", url_path, params))
 
-    
-def delete_group():
-    params = json.dumps({'groupId': 'family'})
-    url_path = '/v1/group/{groupId}/all'
-    response = json.loads(send_request("DELETE", url_path, params))
+
+def list_all_objects():
+    params = None
+    url_path = 'v1/object'
+    response = json.loads(send_request("GET", url_path, params))
 
 
-# def list_all_objects():
-#     params = None
-#     url_path = 'v1/object'
-#     response = json.loads(send_request("GET", url_path, params))
-
-list_all_images()
+list_all_objects()
