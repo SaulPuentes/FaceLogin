@@ -1,14 +1,30 @@
 from datetime import datetime
 import base64
+<<<<<<< HEAD
 import json
 import os
 import sys
+=======
+<<<<<<< Updated upstream
+import http.client
+import json
+import os
+import sys
+=======
+import json
+import os
+import sys
+>>>>>>> raspberry
 try:
     import httplib # Python 2
 except:
     import http.client as httplib # Python 3
     
 import cv2
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> raspberry
 
 from save_result import save_result
 
