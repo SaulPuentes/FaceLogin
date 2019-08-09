@@ -1,20 +1,19 @@
-import cv2
+from datetime import datetime
 import base64
+import json
+import os
+import sys
 try:
     import httplib # Python 2
 except:
     import http.client as httplib # Python 3
-import json
-import os
-import sys
+    
+import cv2
 
-try:
-    from save_result import save_result
-except:
-    pass
+from save_result import save_result
 
 # Set this variable to True to print all server responses.
-_print_responses = True
+_print_responses = False
 
 # Your Sighthound Cloud token. More information at
 # https://www.sighthound.com/support/creating-api-token
@@ -32,6 +31,9 @@ _group_name = "helicon"
 
 # The directory where annotated test images will be written.
 _output_folder = "out"
+
+# The name of the person detected by the face recognition request
+_person_id = None
 
 
 def send_request(request_method, request_path, params):
@@ -75,18 +77,40 @@ def request_recognition(img):
     response = json.loads(send_request("POST", url_path, params))
     
     save_result(response)
-    print_message(response)
+    save_image(response, img)
+    # print_message(response)
 
 
 def print_message(response):
+    confidence = None
     # Show a message in console
     for face in response['objects']:
 
         # Retrieve and draw the id and confidence of the recongition.
-        name = face['objectId']
+        _person_id = face['objectId']
         confidence = face['faceAnnotation']['recognitionConfidence']
-        print('[SIGHTHOUND] Hola ' + str(name) + '.La confianza es :' + str(confidence))
+    print('[SIGHTHOUND] Hola ' + str(_person_id) + '.La confianza es :' + str(confidence))
 
+
+def save_image(response, img):
+    # Retrieve and draw the id and confidence of the recongition.
+    for face in response['objects']:
+        _person_id = face['objectId']
+        confidence = face['faceAnnotation']['recognitionConfidence']
+    
+    # Classify in folders
+    if confidence >= .5:
+        path = 'images/out/' + _person_id + '/'
+    else:
+        path = 'images/out/unknown/'
+    
+    # If folders doesn't exist
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    path = path + str(datetime.now()) +'.jpg'
+    cv2.imwrite(path, img)
+    
 
 def request_detection(img):
     # encode image as jpeg
@@ -101,6 +125,7 @@ def request_detection(img):
     save_result(response)
 
 
+# Group Management
 def list_all_groups():
     params = None
     url_path = '/v1/group'
@@ -113,11 +138,12 @@ def delete_group():
     response = json.loads(send_request("DELETE", url_path, params))
 
 
+# Images Management
 def list_all_images():
     params = None
     url_path = '/v1/image'
     response = json.loads(send_request("GET", url_path, params))
-    
+
 
 def delete_image():
     params = None
@@ -125,16 +151,10 @@ def delete_image():
     url_path = '/v1/image/' + imageId
     response = json.loads(send_request("DELETE", url_path, params))
     
-    
+
+# Object Management
 def delete_object():
     params = None
     objectId = 'Daniel_Carrizales'
     url_path = '/v1/object/' + objectId
     response = json.loads(send_request("DELETE", url_path, params))
-
-
-def list_all_objects():
-    params = None
-    url_path = 'v1/object'
-    response = json.loads(send_request("GET", url_path, params))
-
