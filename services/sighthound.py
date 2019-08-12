@@ -109,6 +109,7 @@ def print_message(response):
 
 
 def save_image(response, img):
+    confidence = None
     # Retrieve and draw the id and confidence of the recongition.
     for face in response['objects']:
         _person_id = face['objectId']
