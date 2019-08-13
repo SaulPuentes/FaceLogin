@@ -8,7 +8,7 @@ from timer import Timer
 class FrLogin:
 
     def start(self):
-        fr_light(500, self.face_detected)
+        fr_light(0, self.face_detected)
         
 
     def face_detected(self, path, img):

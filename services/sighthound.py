@@ -1,11 +1,6 @@
 from datetime import datetime
 import base64
-<<<<<<< Updated upstream
 import http.client
-import json
-import os
-import sys
-=======
 import json
 import os
 import sys
@@ -15,7 +10,6 @@ except:
     import http.client as httplib # Python 3
     
 import cv2
->>>>>>> Stashed changes
 
 from save_result import save_result
 
@@ -96,15 +90,16 @@ def print_message(response):
         # Retrieve and draw the id and confidence of the recongition.
         _person_id = face['objectId']
         confidence = face['faceAnnotation']['recognitionConfidence']
-    print('[SIGHTHOUND] Hola ' + str(_person_id) + '.La confianza es :' + str(confidence))
 
 
 def save_image(response, img):
+    confidence = 0
     # Retrieve and draw the id and confidence of the recongition.
     for face in response['objects']:
         _person_id = face['objectId']
         confidence = face['faceAnnotation']['recognitionConfidence']
-    
+        print('[SIGHTHOUND] Hola ' + str(_person_id) + '.La confianza es :' + str(confidence))    
+
     # Classify in folders
     if confidence >= .5:
         path = 'images/out/' + _person_id + '/'
