@@ -1,6 +1,5 @@
 from datetime import datetime
 import base64
-import http.client
 import json
 import os
 import sys
@@ -50,7 +49,7 @@ def send_request(request_method, request_path, params):
     # Send the request.
     headers = {"Content-type": "application/json",
                "X-Access-Token": _cloud_token}
-    conn = http.client.HTTPSConnection(_cloud_host)
+    conn = httplib.HTTPSConnection(_cloud_host)
     conn.request(request_method, request_path, params, headers)
 
     # Process the response.
@@ -93,7 +92,7 @@ def print_message(response):
 
 
 def save_image(response, img):
-    confidence = 0
+    confidence = None
     # Retrieve and draw the id and confidence of the recongition.
     for face in response['objects']:
         _person_id = face['objectId']
