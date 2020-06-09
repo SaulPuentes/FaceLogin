@@ -5,8 +5,8 @@ import cv2
 faceCascade = cv2.CascadeClassifier('./resources/Cascades/haarcascade_frontalface_alt.xml')
 
 cap = cv2.VideoCapture(0)
-cap.set(3,1280) # set Width
-cap.set(4,720) # set Height
+cap.set(3,640) # set Width
+cap.set(4,480) # set Height
 
 def fr_light(ms, callback):
 
@@ -23,14 +23,14 @@ def fr_light(ms, callback):
             minNeighbors=5,
             minSize=(40, 40)
         )
-
+        
         if faces == ():
             detect_face = False
         else:
             # Set start timestamp
-            if not detect_face:
-                detect_face = True
-                start = datetime.now()
+            # if not detect_face:
+            detect_face = True
+            start = datetime.now()
             # Set end, total timestamp
             end = datetime.now()
             total_time = end - start

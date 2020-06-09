@@ -55,8 +55,8 @@ def send_request(request_method, request_path, params):
     body = response.read()
     error = response.status not in [200, 204]
 
-    if _print_responses or error:
-        print(response.status, body)
+    # if _print_responses or error:
+        # print(response.status, body)
 
     if error:
         sys.exit(1)
